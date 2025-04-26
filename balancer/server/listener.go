@@ -1,7 +1,7 @@
 package server
 
 import (
-	"cloudCamp/redirections"
+	"balancer/redirections"
 	"net/http"
 	"time"
 )

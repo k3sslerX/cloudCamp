@@ -1,6 +1,6 @@
 package main
 
-import "cloudCamp/server"
+import "balancer/server"
 
 func main() {
 	_ = server.StartServer()

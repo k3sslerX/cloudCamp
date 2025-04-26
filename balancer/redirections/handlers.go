@@ -1,7 +1,7 @@
 package redirections
 
 import (
-	"cloudCamp/backends"
+	"balancer/backends"
 	"log"
 	"net/http"
 )
