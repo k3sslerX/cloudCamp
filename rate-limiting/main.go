@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"rate-limiting/server"
+)
 
 func main() {
-	fmt.Println("hello world")
+	_ = server.StartServer()
 }
