@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	config, err := pgxpool.ParseConfig("postgres://postgres:1337@localhost:5432/rate_limiting")
+	config, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Fatal("Error parsing PostgreSQL config:", err)
 	}
