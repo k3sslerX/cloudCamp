@@ -55,7 +55,7 @@ jobs:
 
   build-and-push-rl:
     if: |
-      contains(github.event.push.commits.modified, 'rate-limiting/**')
+      contains(github.event.push.commits.modified.*, 'rate-limiting/')
     runs-on: ubuntu-latest
     permissions:
       contents: read
