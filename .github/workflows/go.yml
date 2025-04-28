@@ -54,8 +54,6 @@ jobs:
           key: ${{ runner.os }}-go-${{ matrix.module }}-${{ hashFiles('**/go.sum') }}
 
   build-and-push-rl:
-    if: |
-      contains(github.event.push.commits.modified.*, 'rate-limiting/')
     runs-on: ubuntu-latest
     permissions:
       contents: read
