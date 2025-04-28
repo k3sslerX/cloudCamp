@@ -1,6 +1,7 @@
 package server
 
 import (
+	"balancer/backends"
 	"balancer/redirections"
 	"net/http"
 	"time"
@@ -22,6 +23,8 @@ func StartServer() error {
 	if err != nil {
 		return err
 	}
+
+	go backends.HealthChecker()
 
 	return nil
 }
