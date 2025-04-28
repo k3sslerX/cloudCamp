@@ -8,7 +8,8 @@ services:
     environment:
       - DATABASE_URL=postgres://user:password@db:5432/rate_limiting
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: postgres:15-alpine
@@ -20,8 +21,6 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./rate-limiting/sql:/docker-entrypoint-initdb.d
-      - ./rate-limiting/sql/entrypoint.sh:/custom-entrypoint.sh
-    entrypoint: /custom-entrypoint.sh
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U user -d rate_limiting" ]
       interval: 5s
