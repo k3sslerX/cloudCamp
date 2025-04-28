@@ -50,6 +50,9 @@ jobs:
           key: ${{ runner.os }}-go-${{ matrix.module }}-${{ hashFiles('**/go.sum') }}
 
   build-and-push-rl:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
