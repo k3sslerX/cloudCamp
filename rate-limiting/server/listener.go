@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+type contextKey string
+
+const apiKeyContextKey contextKey = "api_key"
+
 var (
 	serverInstance *http.Server
 	rlInstance     *tokens.RateLimiter
@@ -65,7 +69,7 @@ func apiKeyMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		ctx = context.WithValue(ctx, "api_key", apiKey)
+		ctx = context.WithValue(ctx, apiKeyContextKey, apiKey)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

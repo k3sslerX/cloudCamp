@@ -30,5 +30,9 @@ func handleConnection(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte("Request processed successfully"))
+	_, err = w.Write([]byte("Request processed successfully"))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
