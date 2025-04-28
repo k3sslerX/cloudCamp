@@ -19,12 +19,12 @@ func StartServer() error {
 
 	mux.Handle("/", http.HandlerFunc(redirections.HandleConnection))
 
+	go backends.HealthChecker()
+
 	err := server.ListenAndServe()
 	if err != nil {
 		return err
 	}
-
-	go backends.HealthChecker()
 
 	return nil
 }
