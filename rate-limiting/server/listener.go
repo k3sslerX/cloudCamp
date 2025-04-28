@@ -15,7 +15,6 @@ const apiKeyContextKey contextKey = "api_key"
 var (
 	serverInstance *http.Server
 	rlInstance     *tokens.RateLimiter
-	storage        tokens.DBStorage
 	once           sync.Once
 )
 
@@ -29,7 +28,7 @@ func GetRateLimiter() *tokens.RateLimiter {
 	return rlInstance
 }
 
-func StartServer(args ...string) error {
+func StartServer(storage *tokens.DBStorage, args ...string) error {
 	address := ":8080"
 	if len(args) == 1 {
 		address = args[0]
@@ -43,7 +42,7 @@ func StartServer(args ...string) error {
 		WriteTimeout: 5 * time.Second,
 	}
 
-	mux.Handle("/", apiKeyMiddleware(http.HandlerFunc(handleConnection)))
+	mux.Handle("/", apiKeyMiddleware(http.HandlerFunc(handleConnection), storage))
 
 	rl := GetRateLimiter()
 	rl.Start()
@@ -51,7 +50,7 @@ func StartServer(args ...string) error {
 	return serverInstance.ListenAndServe()
 }
 
-func apiKeyMiddleware(next http.Handler) http.Handler {
+func apiKeyMiddleware(next http.Handler, storage *tokens.DBStorage) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 

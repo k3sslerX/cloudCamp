@@ -53,9 +53,9 @@ func main() {
 	serverErr := make(chan error)
 	go func() {
 		if len(os.Args) == 2 {
-			serverErr <- server.StartServer(os.Args[1])
+			serverErr <- server.StartServer(storage, os.Args[1])
 		} else {
-			serverErr <- server.StartServer()
+			serverErr <- server.StartServer(storage)
 		}
 	}()
 
