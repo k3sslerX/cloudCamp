@@ -13,4 +13,4 @@ COPY --from=builder /app/rl .
 RUN chmod +x rl
 
 EXPOSE 8080
-CMD ["/app/server", "0.0.0.0:8080"]
+CMD ["/app/rl", "0.0.0.0:8080"]
