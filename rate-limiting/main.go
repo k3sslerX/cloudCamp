@@ -52,7 +52,11 @@ func main() {
 
 	serverErr := make(chan error)
 	go func() {
-		serverErr <- server.StartServer()
+		if len(os.Args) == 2 {
+			serverErr <- server.StartServer(os.Args[1])
+		} else {
+			serverErr <- server.StartServer()
+		}
 	}()
 
 	select {

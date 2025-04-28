@@ -29,10 +29,14 @@ func GetRateLimiter() *tokens.RateLimiter {
 	return rlInstance
 }
 
-func StartServer() error {
+func StartServer(args ...string) error {
+	address := ":8080"
+	if len(args) == 1 {
+		address = args[0]
+	}
 	mux := http.NewServeMux()
 	serverInstance = &http.Server{
-		Addr:         ":8080",
+		Addr:         address,
 		Handler:      mux,
 		IdleTimeout:  15 * time.Second,
 		ReadTimeout:  5 * time.Second,
