@@ -1,6 +1,7 @@
 package server
 
 import (
+	"balancer/backends"
 	"balancer/redirections"
 	"net/http"
 	"time"
@@ -17,6 +18,8 @@ func StartServer() error {
 	}
 
 	mux.Handle("/", http.HandlerFunc(redirections.HandleConnection))
+
+	go backends.HealthChecker()
 
 	err := server.ListenAndServe()
 	if err != nil {
