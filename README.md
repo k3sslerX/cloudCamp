@@ -111,7 +111,7 @@ psql -U username -d rate-limiting -f ./sql/01_initTables.sql
 
 Для добавления тестового API-ключа
 ```bash
-psql -U username -d rate-limiting -f ./sql/01_initTestAPIKey.sql
+psql -U username -d rate-limiting -f ./sql/02_initTestAPIKey.sql
 ```
 
 В обоих примерах заменить username на пользователя базы данных
